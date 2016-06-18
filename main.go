@@ -31,7 +31,6 @@ func main() {
 		os.Exit(1)
 	}
 
-	// fmt.Println(pw.Uid)
 	syscall.Setuid(uid)
 	syscall.Setgid(gid)
 	if strings.HasPrefix(os.Args[2], "/") {
