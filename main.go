@@ -6,6 +6,7 @@ import (
 	"os/user"
 	"path"
 	"strconv"
+	"strings"
 	"syscall"
 )
 
@@ -40,4 +41,11 @@ func main() {
 		err := syscall.Exec(program, os.Args[2:], os.Environ())
 		checkError(err)
 	}
+
+	for _, p := range strings.Split(os.Getenv("PATH"), ":") {
+		absPath := path.Join(p, program)
+		err = syscall.Exec(absPath, os.Args[2:], os.Environ())
+	}
+
+	checkError(err)
 }
