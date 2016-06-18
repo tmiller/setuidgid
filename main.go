@@ -14,7 +14,7 @@ var usage string = "setuidgid: usage: setuidgid username program [arg...]"
 
 func checkError(err error) {
 	if err != nil {
-		fmt.Println(err)
+		fmt.Printf("setuidgid: fatal: %v\n", err)
 		os.Exit(111)
 	}
 }
