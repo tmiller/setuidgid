@@ -21,6 +21,7 @@ func main() {
 
 	username := os.Args[1]
 	program := os.Args[2]
+	pargv := os.Args[2:]
 
 	user, err := user.Lookup(username)
 	checkError(err)
@@ -36,13 +37,13 @@ func main() {
 	checkError(err)
 
 	if path.IsAbs(program) {
-		err := syscall.Exec(program, os.Args[2:], os.Environ())
+		err := syscall.Exec(program, pargv, os.Environ())
 		checkError(err)
 	}
 
 	for _, p := range strings.Split(os.Getenv("PATH"), ":") {
 		absPath := path.Join(p, program)
-		err = syscall.Exec(absPath, os.Args[2:], os.Environ())
+		err = syscall.Exec(absPath, pargv, os.Environ())
 	}
 
 	checkError(err)
