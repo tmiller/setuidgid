@@ -13,19 +13,19 @@ func main() {
 
 	//path := os.Getenv("PATH")
 
-	pw, err := user.Lookup(os.Args[1])
+	user, err := user.Lookup(os.Args[1])
 	if err != nil {
 		fmt.Println(err)
 		os.Exit(1)
 	}
 
-	uid, err := strconv.Atoi(pw.Uid)
+	uid, err := strconv.Atoi(user.Uid)
 	if err != nil {
 		fmt.Println(err)
 		os.Exit(1)
 	}
 
-	gid, err := strconv.Atoi(pw.Gid)
+	gid, err := strconv.Atoi(user.Gid)
 	if err != nil {
 		fmt.Println(err)
 		os.Exit(1)
