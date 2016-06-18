@@ -27,10 +27,8 @@ func main() {
 
 	uid, err := strconv.Atoi(user.Uid)
 	checkError(err)
-
 	gid, err := strconv.Atoi(user.Gid)
 	checkError(err)
-
 
 	err = syscall.Setgid(gid)
 	checkError(err)
