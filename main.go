@@ -38,6 +38,8 @@ func main() {
 	gid, err := strconv.Atoi(user.Gid)
 	checkError(err)
 
+	err = syscall.Setgroups([]int{gid})
+	checkError(err)
 	err = syscall.Setgid(gid)
 	checkError(err)
 	err = syscall.Setuid(uid)
