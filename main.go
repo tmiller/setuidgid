@@ -18,9 +18,10 @@ func checkError(err error) {
 
 func main() {
 
-	//path := os.Getenv("PATH")
+	username := os.Args[1]
+	program := os.Args[2]
 
-	user, err := user.Lookup(os.Args[1])
+	user, err := user.Lookup(username)
 	checkError(err)
 
 	uid, err := strconv.Atoi(user.Uid)
@@ -35,8 +36,8 @@ func main() {
 	err = syscall.Setgid(gid)
 	checkError(err)
 
-	if strings.HasPrefix(os.Args[2], "/") {
-		err := syscall.Exec(os.Args[2], os.Args[2:], os.Environ())
+	if strings.HasPrefix(program, "/") {
+		err := syscall.Exec(program, os.Args[2:], os.Environ())
 		checkError(err)
 	}
 }
