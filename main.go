@@ -4,8 +4,8 @@ import (
 	"fmt"
 	"os"
 	"os/user"
+	"path"
 	"strconv"
-	"strings"
 	"syscall"
 )
 
@@ -36,7 +36,7 @@ func main() {
 	err = syscall.Setgid(gid)
 	checkError(err)
 
-	if strings.HasPrefix(program, "/") {
+	if path.IsAbs(program) {
 		err := syscall.Exec(program, os.Args[2:], os.Environ())
 		checkError(err)
 	}
