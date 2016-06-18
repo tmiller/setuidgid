@@ -22,7 +22,7 @@ func checkError(err error) {
 func main() {
 
 	if len(os.Args) <= 2 {
-		fmt.Print(usage)
+		fmt.Println(usage)
 		os.Exit(100)
 	}
 
