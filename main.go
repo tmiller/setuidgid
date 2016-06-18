@@ -9,35 +9,34 @@ import (
 	"syscall"
 )
 
+func checkError(err error) {
+	if err != nil {
+		fmt.Println(err)
+		os.Exit(1)
+	}
+}
+
 func main() {
 
 	//path := os.Getenv("PATH")
 
 	user, err := user.Lookup(os.Args[1])
-	if err != nil {
-		fmt.Println(err)
-		os.Exit(1)
-	}
+	checkError(err)
 
 	uid, err := strconv.Atoi(user.Uid)
-	if err != nil {
-		fmt.Println(err)
-		os.Exit(1)
-	}
+	checkError(err)
 
 	gid, err := strconv.Atoi(user.Gid)
-	if err != nil {
-		fmt.Println(err)
-		os.Exit(1)
-	}
+	checkError(err)
 
-	syscall.Setuid(uid)
-	syscall.Setgid(gid)
+	err = syscall.Setuid(uid)
+	checkError(err)
+
+	err = syscall.Setgid(gid)
+	checkError(err)
+
 	if strings.HasPrefix(os.Args[2], "/") {
 		err := syscall.Exec(os.Args[2], os.Args[2:], os.Environ())
-		if err != nil {
-			fmt.Println(err)
-		}
+		checkError(err)
 	}
-
 }
