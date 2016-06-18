@@ -10,6 +10,8 @@ import (
 	"syscall"
 )
 
+var usage string = "setuidgid: usage: setuidgid username program [arg...]"
+
 func checkError(err error) {
 	if err != nil {
 		fmt.Println(err)
@@ -18,6 +20,11 @@ func checkError(err error) {
 }
 
 func main() {
+
+	if len(os.Args) <= 2 {
+		fmt.Print(usage)
+		os.Exit(100)
+	}
 
 	username := os.Args[1]
 	program := os.Args[2]
